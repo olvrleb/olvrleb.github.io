@@ -9,7 +9,6 @@
         
         body { 
             background-color: #07020d; 
-            /* Signature Background Pattern */
             background-image: radial-gradient(#1a0b2e 1px, transparent 1px);
             background-size: 30px 30px;
             color: #ecebff; 
@@ -19,46 +18,57 @@
             height: 100vh; 
             overflow: hidden;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            animation: backgroundMove 20s linear infinite;
+        }
+
+        @keyframes backgroundMove {
+            from { background-position: 0 0; }
+            to { background-position: 100px 100px; }
         }
 
         .auth-card {
-            background: rgba(18, 8, 31, 0.8);
+            background: rgba(18, 8, 31, 0.7);
             padding: 40px; 
-            border-radius: 20px;
-            border: 1px solid #1f1433; 
-            width: 350px; 
+            border-radius: 24px;
+            border: 1px solid rgba(167, 139, 250, 0.2); 
+            width: 380px; 
             text-align: center;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
             z-index: 10;
-            position: relative;
         }
 
         input {
-            width: 100%; padding: 12px; margin: 10px 0;
-            background: #07020d; border: 1px solid #1f1433;
-            color: white; border-radius: 8px; outline: none;
-            transition: border-color 0.3s ease;
+            width: 100%; padding: 14px; margin: 10px 0;
+            background: rgba(7, 2, 13, 0.5); border: 1px solid #1f1433;
+            color: white; border-radius: 12px; outline: none;
+            transition: 0.3s;
         }
 
-        input:focus { border-color: #a78bfa; }
+        input:focus { border-color: #a78bfa; box-shadow: 0 0 15px rgba(167, 139, 250, 0.2); }
 
         button {
-            width: 100%; padding: 12px; background: #a78bfa;
+            width: 100%; padding: 14px; background: #a78bfa;
             border: none; border-radius: 50px; font-weight: bold;
-            cursor: pointer; margin-top: 10px; transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            text-transform: uppercase; letter-spacing: 1px;
-            color: #07020d;
+            cursor: pointer; margin-top: 10px; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-transform: uppercase; letter-spacing: 1px; color: #07020d;
         }
 
-        button:hover { transform: scale(1.02); background: #fff; }
+        button:hover { transform: translateY(-3px); background: #fff; box-shadow: 0 10px 20px rgba(167, 139, 250, 0.3); }
 
-        /* Background Vignette */
+        .owner-glow {
+            text-shadow: 0 0 10px rgba(167, 139, 250, 0.8);
+            border-bottom: 2px solid #a78bfa;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
         body::after {
             content: "";
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, transparent 20%, #07020d 100%);
+            background: radial-gradient(circle at center, transparent 0%, #07020d 90%);
             pointer-events: none;
         }
     </style>
@@ -66,37 +76,36 @@
 <body>
 
     <div class="auth-card" id="auth-form">
-        <h2 style="letter-spacing: 2px; color: #a78bfa; margin-bottom: 10px; text-transform: uppercase;">Join V2</h2>
-        <input type="email" id="email" placeholder="Email">
-        <input type="password" id="password" placeholder="Password">
-        <button onclick="signUp()">Create Account</button>
-        <button onclick="login()" style="background: transparent; color: #a78bfa; border: 1px solid #a78bfa; margin-top: 15px;">Log In</button>
+        <h2 style="letter-spacing: 3px; color: #a78bfa; margin-bottom: 20px; text-transform: uppercase;">System Login</h2>
+        <input type="email" id="email" placeholder="Email Address">
+        <input type="password" id="password" placeholder="Access Key">
+        <button onclick="signUp()">Initialize Account</button>
+        <button onclick="login()" style="background: transparent; color: #a78bfa; border: 1px solid #a78bfa; margin-top: 15px;">Authorize</button>
         <br><br>
-        <a href="index.html" style="color: rgba(236, 235, 255, 0.4); text-decoration: none; font-size: 0.75rem; letter-spacing: 1px; font-weight: bold; text-transform: uppercase;">← Back to Home</a>
+        <a href="index.html" style="color: rgba(236, 235, 255, 0.3); text-decoration: none; font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase;">← Back to Home</a>
     </div>
 
     <div class="auth-card" id="user-info" style="display: none;">
         <h2 id="welcome-header" style="color: #a78bfa; letter-spacing: 2px; text-transform: uppercase;">Welcome Back</h2>
-        <p id="user-email" style="color: rgba(236, 235, 255, 0.5); margin: 10px 0; font-size: 0.8rem;"></p>
+        <p id="user-email" style="color: rgba(236, 235, 255, 0.5); margin: 15px 0; font-size: 0.8rem; font-family: monospace;"></p>
 
         <div id="admin-tools" style="display: none; border-top: 1px solid #1f1433; margin-top: 20px; padding-top: 20px;">
-            <p style="font-size: 0.6rem; color: #a78bfa; letter-spacing: 2px; margin-bottom: 15px; text-transform: uppercase; opacity: 0.8;">Owner Terminal // v2</p>
+            <p style="font-size: 0.6rem; color: #a78bfa; letter-spacing: 2px; margin-bottom: 15px; text-transform: uppercase;">Owner Terminal // active</p>
             <button onclick="alert('All systems operational.')" 
-                style="background: rgba(167, 139, 250, 0.05); border: 1px solid #a78bfa; color: #a78bfa; font-size: 0.7rem; padding: 12px; cursor: pointer; width: 100%; border-radius: 50px; font-weight: bold;">
-                Run System Diagnostics
+                style="background: rgba(167, 139, 250, 0.1); border: 1px solid #a78bfa; color: #a78bfa; font-size: 0.7rem; padding: 12px; border-radius: 50px; font-weight: bold; animation: pulse 2s infinite;">
+                RUN SYSTEM DIAGNOSTICS
             </button>
         </div>
 
-        <button onclick="logout()" style="margin-top: 20px; background: transparent; border: 1px solid #1f1433; color: #ecebff; padding: 10px 20px; border-radius: 50px;">Log Out</button>
+        <button onclick="logout()" style="margin-top: 20px; background: transparent; border: 1px solid #1f1433; color: #ecebff; padding: 10px 20px; border-radius: 50px;">Terminate Session</button>
         <br><br>
-        <a href="index.html" style="color: rgba(236, 235, 255, 0.4); text-decoration: none; font-size: 0.75rem; letter-spacing: 1px; font-weight: bold; text-transform: uppercase;">← Back to Home</a>
+        <a href="index.html" style="color: rgba(236, 235, 255, 0.3); text-decoration: none; font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase;">← Back to Home</a>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 
     <script>
-        // Your Specific Firebase Config
         const firebaseConfig = {
           apiKey: "AIzaSyBYFduTRHgXE98u2QQ3B6YIrQEEJev7Mv0",
           authDomain: "olvrleb-v2.firebaseapp.com",
@@ -106,47 +115,3 @@
           appId: "1:460321574988:web:685899038f9edb0a09e4e9",
           measurementId: "G-220BGVZW8M"
         };
-
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-
-        function signUp() {
-            const email = document.getElementById('email').value.trim();
-            const pass = document.getElementById('password').value;
-            auth.createUserWithEmailAndPassword(email, pass).catch(e => alert(e.message));
-        }
-
-        function login() {
-            const email = document.getElementById('email').value.trim();
-            const pass = document.getElementById('password').value;
-            auth.signInWithEmailAndPassword(email, pass).catch(e => alert(e.message));
-        }
-
-        function logout() { auth.signOut(); }
-
-        auth.onAuthStateChanged(user => {
-            const userBox = document.getElementById('user-info');
-            const authForm = document.getElementById('auth-form');
-            const welcomeText = document.getElementById('welcome-header'); 
-            const adminTools = document.getElementById('admin-tools');
-
-            if (user) {
-                authForm.style.display = 'none';
-                userBox.style.display = 'block';
-
-                if (user.email === "oliverleblanc9@gmail.com") {
-                    welcomeText.innerText = "Welcome, Owner";
-                    if(adminTools) adminTools.style.display = 'block'; 
-                } else {
-                    welcomeText.innerText = "Welcome Back";
-                    if(adminTools) adminTools.style.display = 'none';
-                }
-                document.getElementById('user-email').innerText = user.email;
-            } else {
-                authForm.style.display = 'block';
-                userBox.style.display = 'none';
-            }
-        });
-    </script>
-</body>
-</html>
