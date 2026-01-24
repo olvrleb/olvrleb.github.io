@@ -38,13 +38,17 @@
         <button onclick="login()" style="background: transparent; color: #a78bfa; border: 1px solid #a78bfa;">LOG IN</button>
     </div>
 
-    <div class="auth-card" id="user-info">
-        <h2>WELCOME BACK</h2>
-        <p id="user-email" style="color: #a78bfa; margin: 20px 0;"></p>
-        <button onclick="logout()">LOG OUT</button>
-        <br><br>
-        <a href="projects.html" style="color: white; text-decoration: none; font-size: 0.8rem;">← BACK TO GAMES</a>
+<div class="auth-card" id="user-info" style="display: none;">
+    <h2 id="welcome-header">WELCOME BACK</h2>
+    <p id="user-email"></p>
+
+    <div id="admin-tools" style="display: none; border-top: 1px solid #333; margin-top: 20px; padding-top: 20px;">
+        <h3 style="color: #ff4500; font-size: 0.8rem;">OWNER COMMANDS</h3>
+        <button onclick="alert('Systems Online')" style="margin-top: 10px; background: #1a0b2e; border: 1px solid #ff4500; color: white; padding: 5px 10px; cursor: pointer;">DIAGNOSTICS</button>
     </div>
+
+    <button onclick="logout()" style="margin-top: 20px;">LOG OUT</button>
+</div>
 
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
@@ -77,14 +81,49 @@ const firebaseConfig = {
 
         function logout() { auth.signOut(); }
 
+        // 1. The Sign Up Function
+        function signUp() {
+            const email = document.getElementById('email').value.trim();
+            const pass = document.getElementById('password').value;
+            auth.createUserWithEmailAndPassword(email, pass).catch(e => alert(e.message));
+        }
+
+        // 2. The Login Function
+        function login() {
+            const email = document.getElementById('email').value.trim();
+            const pass = document.getElementById('password').value;
+            auth.signInWithEmailAndPassword(email, pass).catch(e => alert(e.message));
+        }
+
+        // 3. The Logout Function
+        function logout() { auth.signOut(); }
+
+        // 4. The "Owner-Aware" State Logic
         auth.onAuthStateChanged(user => {
+            const userBox = document.getElementById('user-info');
+            const authForm = document.getElementById('auth-form');
+            const welcomeText = document.getElementById('welcome-header'); 
+            const adminTools = document.getElementById('admin-tools');
+
             if (user) {
-                document.getElementById('auth-form').style.display = 'none';
-                document.getElementById('user-info').style.display = 'block';
+                authForm.style.display = 'none';
+                userBox.style.display = 'block';
+
+                // THE OWNER CHECK
+                if (user.email === "oliverleblanc9@gmail.com") {
+                    welcomeText.innerText = "WELCOME, OWNER";
+                    welcomeText.style.color = "#ff4500"; // Fiery orange
+                    if(adminTools) adminTools.style.display = 'block'; 
+                } else {
+                    welcomeText.innerText = "WELCOME BACK";
+                    welcomeText.style.color = "#a78bfa"; // Regular purple
+                    if(adminTools) adminTools.style.display = 'none';
+                }
+
                 document.getElementById('user-email').innerText = user.email;
             } else {
-                document.getElementById('auth-form').style.display = 'block';
-                document.getElementById('user-info').style.display = 'none';
+                authForm.style.display = 'block';
+                userBox.style.display = 'none';
             }
         });
     </script>
