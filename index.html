@@ -6,47 +6,76 @@
     <title>olvrleb | v2</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body { 
             background-color: #07020d; 
+            /* Subtle Background Pattern matching Projects page */
+            background-image: radial-gradient(#1a0b2e 1px, transparent 1px);
+            background-size: 30px 30px;
             color: #ecebff; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
             height: 100vh; 
             overflow: hidden;
-            font-family: 'Helvetica', 'Arial', sans-serif; /* Helvetica Priority */
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
         }
-        .welcome-content { text-align: center; }
+
+        .welcome-content { 
+            text-align: center; 
+            position: relative;
+            z-index: 1;
+        }
+
         .brand { 
-            font-size: 1.2rem; 
-            letter-spacing: 8px; 
+            font-size: 1rem; 
+            letter-spacing: 10px; 
             color: #a78bfa; 
             text-transform: uppercase;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             display: block;
+            opacity: 0.8;
         }
+
         h1 { 
-            font-size: 6rem; /* Huge Helvetica title */
+            font-size: 6rem; 
             font-weight: bold;
             letter-spacing: -4px;
-            margin-bottom: 40px;
-            background: linear-gradient(to bottom, #fff, #4b3e63);
+            margin-bottom: 50px;
+            text-transform: lowercase; /* Keeping it techy/minimal */
+            background: linear-gradient(to bottom, #fff 40%, #4b3e63 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
         .enter-link {
-            font-size: 1.5rem;
+            font-size: 0.9rem;
+            font-weight: bold;
+            letter-spacing: 4px;
             color: #fff;
             text-decoration: none;
-            padding: 10px 30px;
+            padding: 15px 40px;
             border: 1px solid #2d1b4e;
-            transition: all 0.3s;
-            border-radius: 2px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 50px; /* Rounded button to match new cards */
+            text-transform: uppercase;
         }
+
         .enter-link:hover {
             background: #a78bfa;
             color: #07020d;
-            box-shadow: 0 0 30px rgba(167, 139, 250, 0.4);
+            border-color: #a78bfa;
+            box-shadow: 0 0 40px rgba(167, 139, 250, 0.4);
+            transform: scale(1.05);
+        }
+
+        /* Subtle vignette effect to focus on the center */
+        body::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, transparent 20%, #07020d 100%);
+            pointer-events: none;
         }
     </style>
 </head>
