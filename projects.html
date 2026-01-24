@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>olvrleb | projects v2</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
+            background-color: #07020d; 
+            color: #ecebff; 
+            line-height: 1.6;
+        }
+
+        header {
+            padding: 5rem 2rem 3rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-back {
+            color: #a78bfa;
+            text-decoration: none;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            display: block;
+            margin-bottom: 1rem;
+            transition: opacity 0.3s;
+        }
+
+        .nav-back:hover { opacity: 0.7; }
+
+        h1 { 
+            font-size: 5rem; 
+            font-weight: bold;
+            letter-spacing: -3px; 
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 100px 20px;
+        }
+
+        /* The Grid */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        /* Project Cards with Rounded Corners */
+        .card {
+            background: #12081f;
+            border: 1px solid #1f1433;
+            border-radius: 24px; /* Large rounded corners */
+            padding: 40px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 250px;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            background: #1a0d2e;
+            border-color: #a78bfa;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 20px rgba(167, 139, 250, 0.1);
+        }
+
+        .card-tag {
+            font-family: monospace;
+            font-size: 0.7rem;
+            color: #a78bfa;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .card h2 { 
+            font-size: 2.2rem; 
+            font-weight: bold;
+            letter-spacing: -1px;
+            margin-bottom: 15px;
+        }
+
+        .card p { 
+            color: #64748b; 
+            font-size: 0.95rem;
+        }
+
+        footer { 
+            text-align: center; 
+            padding-bottom: 50px; 
+            color: #2d1b4e; 
+            font-size: 0.7rem; 
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="nav-back">← Return to Entry</a>
+        <h1>Projects</h1>
+    </header>
+
+    <div class="container">
+        <div class="project-grid">
+            
+            <a href="#" class="card">
+                <div>
+                    <span class="card-tag">SYSTEM_STABLE</span>
+                    <h2>PROJECT_01</h2>
+                    <p>Deployment description pending...</p>
+                </div>
+            </a>
+
+            <a href="#" class="card">
+                <div>
+                    <span class="card-tag">SYSTEM_STABLE</span>
+                    <h2>PROJECT_02</h2>
+                    <p>Deployment description pending...</p>
+                </div>
+            </a>
+
+            <a href="#" class="card">
+                <div>
+                    <span class="card-tag">SYSTEM_STABLE</span>
+                    <h2>PROJECT_03</h2>
+                    <p>Deployment description pending...</p>
+                </div>
+            </a>
+
+            <a href="#" class="card">
+                <div>
+                    <span class="card-tag">SYSTEM_STABLE</span>
+                    <h2>PROJECT_04</h2>
+                    <p>Deployment description pending...</p>
+                </div>
+            </a>
+
+            <a href="#" class="card">
+                <div>
+                    <span class="card-tag">SYSTEM_STABLE</span>
+                    <h2>PROJECT_05</h2>
+                    <p>Deployment description pending...</p>
+                </div>
+            </a>
+
+        </div>
+    </div>
+
+    <footer>
+        OLVRLEB // V2.0 // ALL RIGHTS RESERVED
+    </footer>
+
+</body>
+</html>
