@@ -1,30 +1,143 @@
+Understood—olvrleb is the brand, and project v2 is the mission. We're going for a sleek, "underground" developer aesthetic with that midnight purple vibe.
+
+I've swapped out the generic headings, added a dedicated welcome section, and kept the UI ultra-clean.
+
+Updated index.html for olvrleb
+HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Game Library</title>
+    <title>olvrleb | project v2</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; margin: 0; display: flex; flex-direction: column; align-items: center; }
-        header { background: #333; color: white; width: 100%; padding: 2rem 0; text-align: center; }
-        .container { max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
-        .game-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; }
-        .btn { display: inline-block; background: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin-top: 10px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Inter', 'Segoe UI', sans-serif; 
+            background-color: #07020d; /* Even deeper midnight */
+            color: #ecebff;
+            line-height: 1.6;
+        }
+
+        /* Hero / Welcome Section */
+        header {
+            padding: 8rem 2rem 4rem 2rem;
+            text-align: left;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .brand {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: #a78bfa;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        h1 { 
+            font-size: 4rem; 
+            letter-spacing: -2px; 
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #fff, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .welcome-msg {
+            max-width: 600px;
+            font-size: 1.1rem;
+            color: #94a3b8;
+            border-left: 2px solid #2d1b4e;
+            padding-left: 1.5rem;
+        }
+
+        /* Grid */
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto 6rem auto;
+            padding: 0 20px;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        /* Project Cards */
+        .card {
+            background: #0f081a;
+            border: 1px solid #1f1433;
+            padding: 30px;
+            border-radius: 4px; /* Sharper, more modern corners */
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .card:hover {
+            background: #160d25;
+            border-color: #a78bfa;
+            transform: scale(1.02);
+        }
+
+        .version-tag {
+            font-family: monospace;
+            font-size: 0.75rem;
+            color: #6d28d9;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .card-desc {
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        footer { 
+            padding: 4rem; 
+            text-align: center; 
+            font-size: 0.8rem; 
+            color: #2d1b4e;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
     </style>
 </head>
 <body>
+
     <header>
-        <h1>Welcome to My Games</h1>
-    </header>
-    <div class="container">
-        <div class="game-list">
-            <div class="card">
-                <h3>My First Game</h3>
-                <p>A fun HTML5 game.</p>
-                <a href="./game1/" class="btn">Play Now</a>
-            </div>
+        <span class="brand">olvrleb</span>
+        <h1>project v2</h1>
+        <div class="welcome-msg">
+            Welcome to the next iteration. This space serves as the primary deployment hub for experimental builds and interactive projects. Explore the entries below.
         </div>
+    </header>
+
+    <div class="container">
+        <div class="project-grid">
+            
+            <a href="./game-folder-1/" class="card">
+                <span class="version-tag">STABLE_BUILD_01</span>
+                <h3 class="card-title">Project Alpha</h3>
+                <p class="card-desc">Tactical movement simulation built for high-performance browsers.</p>
+            </a>
+            </div>
     </div>
+
+    <footer>
+        &copy; 2026 olvrleb // system_status: online
+    </footer>
+
 </body>
 </html>
