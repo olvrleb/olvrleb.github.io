@@ -47,7 +47,7 @@
             transition: 0.3s;
         }
 
-        input:focus { border-color: #a78bfa; box-shadow: 0 0 15px rgba(167, 139, 250, 0.1); }
+        input:focus { border-color: #a78bfa; }
 
         button {
             width: 100%; padding: 14px; background: #a78bfa;
@@ -82,8 +82,8 @@
         <h2 style="letter-spacing: 3px; color: #a78bfa; margin-bottom: 20px; text-transform: uppercase;">System Login</h2>
         <input type="email" id="email" placeholder="Email Address">
         <input type="password" id="password" placeholder="Password">
-        <button onclick="signUp()">Create Account</button>
-        <button onclick="login()" class="secondary-btn">Authorize</button>
+        <button id="signUpBtn">Create Account</button>
+        <button id="loginBtn" class="secondary-btn">Authorize</button>
         <br><br>
         <a href="index.html" style="color: rgba(236, 235, 255, 0.3); text-decoration: none; font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase;">← Back to Home</a>
     </div>
@@ -99,7 +99,7 @@
             </button>
         </div>
 
-        <button onclick="logout()" class="secondary-btn" style="border-radius: 50px; padding: 10px 20px; width: auto;">Log Out</button>
+        <button id="logoutBtn" class="secondary-btn" style="border-radius: 50px; padding: 10px 20px; width: auto;">Log Out</button>
         <br><br>
         <a href="index.html" style="color: rgba(236, 235, 255, 0.3); text-decoration: none; font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase;">← Back to Home</a>
     </div>
@@ -108,6 +108,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 
     <script>
+        // 1. YOUR FIREBASE CONFIG
         const firebaseConfig = {
           apiKey: "AIzaSyBYFduTRHgXE98u2QQ3B6YIrQEEJev7Mv0",
           authDomain: "olvrleb-v2.firebaseapp.com",
@@ -118,27 +119,30 @@
           measurementId: "G-220BGVZW8M"
         };
 
-        firebase.initializeApp(firebaseConfig);
+        // 2. INITIALIZE
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
         const auth = firebase.auth();
 
-        // FUNCTIONS
-        function signUp() {
+        // 3. EVENT LISTENERS (Reliable way to link buttons)
+        document.getElementById('signUpBtn').addEventListener('click', () => {
             const email = document.getElementById('email').value.trim();
             const pass = document.getElementById('password').value;
-            if(!email || !pass) return alert("Fill in both fields.");
             auth.createUserWithEmailAndPassword(email, pass).catch(e => alert(e.message));
-        }
+        });
 
-        function login() {
+        document.getElementById('loginBtn').addEventListener('click', () => {
             const email = document.getElementById('email').value.trim();
             const pass = document.getElementById('password').value;
-            if(!email || !pass) return alert("Fill in both fields.");
             auth.signInWithEmailAndPassword(email, pass).catch(e => alert(e.message));
-        }
+        });
 
-        function logout() { auth.signOut(); }
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            auth.signOut();
+        });
 
-        // STATE LISTENER
+        // 4. UI STATE LOGIC
         auth.onAuthStateChanged(user => {
             const userBox = document.getElementById('user-info');
             const authForm = document.getElementById('auth-form');
@@ -163,9 +167,29 @@
             }
         });
 
-        // PARTICLES
+        // 5. PARTICLES
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
         function init() {
-            canvas.width = window.innerWidth
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles = [];
+            for(let i=0; i<40; i++) particles.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, s: Math.random()*2, v: Math.random()*0.5});
+        }
+        function anim() {
+            ctx.clearRect(0,0,canvas.width, canvas.height);
+            ctx.fillStyle = '#a78bfa';
+            particles.forEach(p => {
+                p.y -= p.v;
+                if(p.y < 0) p.y = canvas.height;
+                ctx.globalAlpha = 0.15;
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.s, 0, Math.PI*2); ctx.fill();
+            });
+            requestAnimationFrame(anim);
+        }
+        window.addEventListener('resize', init);
+        init(); anim();
+    </script>
+</body>
+</html>
