@@ -9,7 +9,6 @@
         
         body { 
             background-color: #07020d; 
-            /* Subtle Background Pattern matching Projects page */
             background-image: radial-gradient(#1a0b2e 1px, transparent 1px);
             background-size: 30px 30px;
             color: #ecebff; 
@@ -21,6 +20,69 @@
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
         }
 
+        /* --- TOP NAVIGATION BAR --- */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: rgba(7, 2, 13, 0.6); /* Transparent dark */
+            backdrop-filter: blur(10px); /* Blur effect */
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            z-index: 1000;
+        }
+
+        .nav-logo {
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #a78bfa;
+            text-decoration: none;
+            font-size: 0.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-item {
+            color: #ecebff;
+            text-decoration: none;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: bold;
+            transition: opacity 0.3s ease;
+            opacity: 0.6;
+        }
+
+        .nav-item:hover {
+            opacity: 1;
+            color: #a78bfa;
+        }
+
+        .login-btn {
+            background: #a78bfa;
+            color: #07020d;
+            padding: 8px 18px;
+            border-radius: 50px;
+            opacity: 1; /* Fully visible */
+        }
+
+        .login-btn:hover {
+            background: #fff;
+            box-shadow: 0 0 20px rgba(167, 139, 250, 0.3);
+        }
+
+        /* --- WELCOME CONTENT --- */
         .welcome-content { 
             text-align: center; 
             position: relative;
@@ -42,7 +104,7 @@
             font-weight: bold;
             letter-spacing: -4px;
             margin-bottom: 50px;
-            text-transform: lowercase; /* Keeping it techy/minimal */
+            text-transform: lowercase;
             background: linear-gradient(to bottom, #fff 40%, #4b3e63 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -57,7 +119,7 @@
             padding: 15px 40px;
             border: 1px solid #2d1b4e;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            border-radius: 50px; /* Rounded button to match new cards */
+            border-radius: 50px;
             text-transform: uppercase;
         }
 
@@ -69,7 +131,7 @@
             transform: scale(1.05);
         }
 
-        /* Subtle vignette effect to focus on the center */
+        /* Vignette effect */
         body::after {
             content: "";
             position: absolute;
@@ -80,10 +142,21 @@
     </style>
 </head>
 <body>
+
+    <nav>
+        <a href="index.html" class="nav-logo">olvrleb</a>
+        <div class="nav-links">
+            <a href="https://github.com/olvrleb" target="_blank" class="nav-item">GitHub</a>
+            <a href="YOUR_GOOGLE_FORM_LINK" target="_blank" class="nav-item">Suggestions</a>
+            <a href="#" class="nav-item login-btn">Login</a>
+        </div>
+    </nav>
+
     <div class="welcome-content">
         <span class="brand">olvrleb</span>
         <h1>project v2</h1>
         <a href="projects.html" class="enter-link">GAME ON</a>
     </div>
+
 </body>
 </html>
