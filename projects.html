@@ -9,13 +9,16 @@
         
         body { 
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
-            background-color: #07020d; 
+            background-color: #07020d;
+            /* Sublte Background Pattern */
+            background-image: radial-gradient(#1a0b2e 1px, transparent 1px);
+            background-size: 30px 30px; 
             color: #ecebff; 
             line-height: 1.6;
         }
 
         header {
-            padding: 5rem 2rem 3rem 2rem;
+            padding: 4rem 2rem 2rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -23,18 +26,17 @@
         .nav-back {
             color: #a78bfa;
             text-decoration: none;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 3px;
             display: block;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
         }
 
         h1 { 
-            font-size: 5rem; 
+            font-size: 3rem; 
             font-weight: bold;
-            letter-spacing: -3px; 
-            margin-bottom: 2rem;
+            letter-spacing: -2px; 
             text-transform: uppercase;
         }
 
@@ -44,135 +46,138 @@
             padding: 0 20px 100px 20px;
         }
 
+        /* Smaller, tighter grid */
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 40px;
         }
 
-        /* Card Setup */
-        .card {
-            background: #12081f;
-            border: 1px solid #1f1433;
-            border-radius: 28px; /* High-end rounded look */
+        /* The Project Item */
+        .project-item {
             text-decoration: none;
             color: inherit;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            overflow: hidden; /* Keeps the image inside the rounded corners */
-            display: flex;
-            flex-direction: column;
+            display: block;
+            transition: all 0.3s ease;
         }
 
-        /* Image Container */
-        .card-image {
+        /* The Image "Button" */
+        .img-container {
             width: 100%;
-            height: 200px;
-            background-color: #1a0d2e; /* Placeholder color */
+            aspect-ratio: 1 / 1; /* Square images look cleaner in smaller grids */
+            background: #12081f;
+            border: 1px solid #1f1433;
+            border-radius: 20px;
             overflow: hidden;
-            position: relative;
+            margin-bottom: 15px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .card-image img {
+        .img-container img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* This makes sure the image fills the area perfectly */
-            transition: transform 0.5s ease;
-            opacity: 0.8; /* Slightly dimmed to match the dark theme */
+            object-fit: cover;
+            opacity: 0.7;
+            transition: all 0.4s ease;
         }
 
-        .card:hover .card-image img {
-            transform: scale(1.1); /* Zooms image in on hover */
+        /* Hover Effects */
+        .project-item:hover .img-container {
+            transform: translateY(-8px);
+            border-color: #a78bfa;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5), 0 0 15px rgba(167, 139, 250, 0.2);
+        }
+
+        .project-item:hover .img-container img {
             opacity: 1;
+            transform: scale(1.05);
         }
 
-        /* Content Area */
-        .card-content {
-            padding: 30px;
+        /* Text Under the Button */
+        .project-info {
+            padding-left: 5px;
         }
 
-        .card-tag {
+        .project-tag {
             font-family: monospace;
-            font-size: 0.7rem;
-            color: #a78bfa;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
+            font-size: 0.65rem;
+            color: #4b3e63;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             display: block;
         }
 
-        .card h2 { 
-            font-size: 2rem; 
+        .project-title {
+            font-size: 1.1rem;
             font-weight: bold;
-            letter-spacing: -1px;
-            margin-bottom: 10px;
+            color: #fff;
+            margin-top: 2px;
         }
 
-        .card p { 
-            color: #64748b; 
-            font-size: 0.9rem;
+        .project-item:hover .project-title {
+            color: #a78bfa;
         }
 
-        .card:hover {
-            transform: translateY(-10px);
-            border-color: #a78bfa;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-        }
-
-        footer { text-align: center; padding-bottom: 50px; color: #2d1b4e; font-size: 0.7rem; letter-spacing: 2px; }
+        footer { text-align: center; padding: 50px; color: #1f1433; font-size: 0.7rem; letter-spacing: 2px; }
     </style>
 </head>
 <body>
 
     <header>
-        <a href="/" class="nav-back">← Return to Entry</a>
+        <a href="/" class="nav-back">← Return</a>
         <h1>Projects</h1>
     </header>
 
     <div class="container">
         <div class="project-grid">
             
-            <a href="#" class="card">
-                <div class="card-image">
-                    <img src="preview1.jpg" alt="Project Preview">
+            <a href="./game1/" class="project-item">
+                <div class="img-container">
+                    <img src="preview1.jpg" alt="P1">
                 </div>
-                <div class="card-content">
-                    <span class="card-tag">STABLE_BUILD</span>
-                    <h2>PROJECT_01</h2>
-                    <p>Deployment description pending...</p>
-                </div>
-            </a>
-            <a href="#" class="card">
-                <div class="card-image"><img src="preview2.jpg" alt="Preview"></div>
-                <div class="card-content">
-                    <span class="card-tag">STABLE_BUILD</span>
-                    <h2>PROJECT_02</h2>
-                    <p>Deployment description pending...</p>
+                <div class="project-info">
+                    <span class="project-tag">STABLE_V2</span>
+                    <div class="project-title">PROJECT_01</div>
                 </div>
             </a>
 
-            <a href="#" class="card">
-                <div class="card-image"><img src="preview3.jpg" alt="Preview"></div>
-                <div class="card-content">
-                    <span class="card-tag">STABLE_BUILD</span>
-                    <h2>PROJECT_03</h2>
-                    <p>Deployment description pending...</p>
+            <a href="./game2/" class="project-item">
+                <div class="img-container">
+                    <img src="preview2.jpg" alt="P2">
+                </div>
+                <div class="project-info">
+                    <span class="project-tag">STABLE_V2</span>
+                    <div class="project-title">PROJECT_02</div>
                 </div>
             </a>
 
-            <a href="#" class="card">
-                <div class="card-image"><img src="preview4.jpg" alt="Preview"></div>
-                <div class="card-content">
-                    <span class="card-tag">STABLE_BUILD</span>
-                    <h2>PROJECT_04</h2>
-                    <p>Deployment description pending...</p>
+            <a href="./game3/" class="project-item">
+                <div class="img-container">
+                    <img src="preview3.jpg" alt="P3">
+                </div>
+                <div class="project-info">
+                    <span class="project-tag">STABLE_V2</span>
+                    <div class="project-title">PROJECT_03</div>
                 </div>
             </a>
 
-            <a href="#" class="card">
-                <div class="card-image"><img src="preview5.jpg" alt="Preview"></div>
-                <div class="card-content">
-                    <span class="card-tag">STABLE_BUILD</span>
-                    <h2>PROJECT_05</h2>
-                    <p>Deployment description pending...</p>
+            <a href="./game4/" class="project-item">
+                <div class="img-container">
+                    <img src="preview4.jpg" alt="P4">
+                </div>
+                <div class="project-info">
+                    <span class="project-tag">STABLE_V2</span>
+                    <div class="project-title">PROJECT_04</div>
+                </div>
+            </a>
+
+            <a href="./game5/" class="project-item">
+                <div class="img-container">
+                    <img src="preview5.jpg" alt="P5">
+                </div>
+                <div class="project-info">
+                    <span class="project-tag">STABLE_V2</span>
+                    <div class="project-title">PROJECT_05</div>
                 </div>
             </a>
 
@@ -180,7 +185,7 @@
     </div>
 
     <footer>
-        OLVRLEB // V2.0 // ALL RIGHTS RESERVED
+        OLVRLEB // V2.0
     </footer>
 
 </body>
