@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Member Access | v2</title>
+    <style>
+        body { 
+            background: #07020d; color: #ecebff; 
+            font-family: 'Helvetica Neue', sans-serif;
+            display: flex; justify-content: center; align-items: center; height: 100vh;
+        }
+        .auth-card {
+            background: rgba(18, 8, 31, 0.8);
+            padding: 40px; border-radius: 20px;
+            border: 1px solid #1f1433; width: 350px; text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        input {
+            width: 100%; padding: 12px; margin: 10px 0;
+            background: #07020d; border: 1px solid #1f1433;
+            color: white; border-radius: 8px;
+        }
+        button {
+            width: 100%; padding: 12px; background: #a78bfa;
+            border: none; border-radius: 50px; font-weight: bold;
+            cursor: pointer; margin-top: 10px;
+        }
+        #user-info { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="auth-card" id="auth-form">
+        <h2 style="letter-spacing: 2px;">JOIN V2</h2>
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="signUp()">CREATE ACCOUNT</button>
+        <button onclick="login()" style="background: transparent; color: #a78bfa; border: 1px solid #a78bfa;">LOG IN</button>
+    </div>
+
+    <div class="auth-card" id="user-info">
+        <h2>WELCOME BACK</h2>
+        <p id="user-email" style="color: #a78bfa; margin: 20px 0;"></p>
+        <button onclick="logout()">LOG OUT</button>
+        <br><br>
+        <a href="projects.html" style="color: white; text-decoration: none; font-size: 0.8rem;">← BACK TO GAMES</a>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+
+    <script>
+        // PASTE YOUR FIREBASE CONFIG HERE
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT.appspot.com",
+            messagingSenderId: "YOUR_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        function signUp() {
+            const email = document.getElementById('email').value;
+            const pass = document.getElementById('password').value;
+            auth.createUserWithEmailAndPassword(email, pass).catch(e => alert(e.message));
+        }
+
+        function login() {
+            const email = document.getElementById('email').value;
+            const pass = document.getElementById('password').value;
+            auth.signInWithEmailAndPassword(email, pass).catch(e => alert(e.message));
+        }
+
+        function logout() { auth.signOut(); }
+
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                document.getElementById('auth-form').style.display = 'none';
+                document.getElementById('user-info').style.display = 'block';
+                document.getElementById('user-email').innerText = user.email;
+            } else {
+                document.getElementById('auth-form').style.display = 'block';
+                document.getElementById('user-info').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
