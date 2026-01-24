@@ -9,7 +9,7 @@
         
         body { 
             background-color: #07020d; 
-            /* Same pattern as index and projects */
+            /* Signature Background Pattern */
             background-image: radial-gradient(#1a0b2e 1px, transparent 1px);
             background-size: 30px 30px;
             color: #ecebff; 
@@ -29,20 +29,26 @@
             width: 350px; 
             text-align: center;
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             z-index: 10;
+            position: relative;
         }
 
         input {
             width: 100%; padding: 12px; margin: 10px 0;
             background: #07020d; border: 1px solid #1f1433;
             color: white; border-radius: 8px; outline: none;
+            transition: border-color 0.3s ease;
         }
+
+        input:focus { border-color: #a78bfa; }
 
         button {
             width: 100%; padding: 12px; background: #a78bfa;
             border: none; border-radius: 50px; font-weight: bold;
-            cursor: pointer; margin-top: 10px; transition: 0.3s;
+            cursor: pointer; margin-top: 10px; transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             text-transform: uppercase; letter-spacing: 1px;
+            color: #07020d;
         }
 
         button:hover { transform: scale(1.02); background: #fff; }
@@ -60,43 +66,46 @@
 <body>
 
     <div class="auth-card" id="auth-form">
-        <h2 style="letter-spacing: 2px; color: #a78bfa; margin-bottom: 10px;">JOIN V2</h2>
+        <h2 style="letter-spacing: 2px; color: #a78bfa; margin-bottom: 10px; text-transform: uppercase;">Join V2</h2>
         <input type="email" id="email" placeholder="Email">
         <input type="password" id="password" placeholder="Password">
         <button onclick="signUp()">Create Account</button>
         <button onclick="login()" style="background: transparent; color: #a78bfa; border: 1px solid #a78bfa; margin-top: 15px;">Log In</button>
+        <br><br>
+        <a href="index.html" style="color: rgba(236, 235, 255, 0.4); text-decoration: none; font-size: 0.75rem; letter-spacing: 1px; font-weight: bold; text-transform: uppercase;">← Back to Home</a>
     </div>
 
     <div class="auth-card" id="user-info" style="display: none;">
-        <h2 id="welcome-header" style="color: #a78bfa; letter-spacing: 2px; text-transform: uppercase;">WELCOME BACK</h2>
+        <h2 id="welcome-header" style="color: #a78bfa; letter-spacing: 2px; text-transform: uppercase;">Welcome Back</h2>
         <p id="user-email" style="color: rgba(236, 235, 255, 0.5); margin: 10px 0; font-size: 0.8rem;"></p>
 
         <div id="admin-tools" style="display: none; border-top: 1px solid #1f1433; margin-top: 20px; padding-top: 20px;">
             <p style="font-size: 0.6rem; color: #a78bfa; letter-spacing: 2px; margin-bottom: 15px; text-transform: uppercase; opacity: 0.8;">Owner Terminal // v2</p>
             <button onclick="alert('All systems operational.')" 
                 style="background: rgba(167, 139, 250, 0.05); border: 1px solid #a78bfa; color: #a78bfa; font-size: 0.7rem; padding: 12px; cursor: pointer; width: 100%; border-radius: 50px; font-weight: bold;">
-                RUN SYSTEM DIAGNOSTICS
+                Run System Diagnostics
             </button>
         </div>
 
-        <button onclick="logout()" style="margin-top: 20px; background: transparent; border: 1px solid #1f1433; color: #ecebff; padding: 10px 20px; border-radius: 50px;">LOG OUT</button>
+        <button onclick="logout()" style="margin-top: 20px; background: transparent; border: 1px solid #1f1433; color: #ecebff; padding: 10px 20px; border-radius: 50px;">Log Out</button>
         <br><br>
-        <a href="projects.html" style="color: rgba(236, 235, 255, 0.4); text-decoration: none; font-size: 0.75rem; letter-spacing: 1px; font-weight: bold; text-transform: uppercase;">← BACK TO GAMES</a>
+        <a href="index.html" style="color: rgba(236, 235, 255, 0.4); text-decoration: none; font-size: 0.75rem; letter-spacing: 1px; font-weight: bold; text-transform: uppercase;">← Back to Home</a>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 
     <script>
+        // Your Specific Firebase Config
         const firebaseConfig = {
-  apiKey: "AIzaSyBYFduTRHgXE98u2QQ3B6YIrQEEJev7Mv0",
-  authDomain: "olvrleb-v2.firebaseapp.com",
-  projectId: "olvrleb-v2",
-  storageBucket: "olvrleb-v2.firebasestorage.app",
-  messagingSenderId: "460321574988",
-  appId: "1:460321574988:web:685899038f9edb0a09e4e9",
-  measurementId: "G-220BGVZW8M"
-};
+          apiKey: "AIzaSyBYFduTRHgXE98u2QQ3B6YIrQEEJev7Mv0",
+          authDomain: "olvrleb-v2.firebaseapp.com",
+          projectId: "olvrleb-v2",
+          storageBucket: "olvrleb-v2.firebasestorage.app",
+          messagingSenderId: "460321574988",
+          appId: "1:460321574988:web:685899038f9edb0a09e4e9",
+          measurementId: "G-220BGVZW8M"
+        };
 
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
@@ -126,12 +135,10 @@
                 userBox.style.display = 'block';
 
                 if (user.email === "oliverleblanc9@gmail.com") {
-                    welcomeText.innerText = "WELCOME, OWNER";
-                    welcomeText.style.color = "#a78bfa";
+                    welcomeText.innerText = "Welcome, Owner";
                     if(adminTools) adminTools.style.display = 'block'; 
                 } else {
-                    welcomeText.innerText = "WELCOME BACK";
-                    welcomeText.style.color = "#a78bfa";
+                    welcomeText.innerText = "Welcome Back";
                     if(adminTools) adminTools.style.display = 'none';
                 }
                 document.getElementById('user-email').innerText = user.email;
