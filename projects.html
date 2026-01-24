@@ -10,11 +10,19 @@
         body { 
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
             background-color: #07020d;
-            /* Sublte Background Pattern */
             background-image: radial-gradient(#1a0b2e 1px, transparent 1px);
             background-size: 30px 30px; 
             color: #ecebff; 
             line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Particle Canvas Style */
+        #bg-canvas {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            pointer-events: none;
         }
 
         header {
@@ -31,7 +39,10 @@
             letter-spacing: 3px;
             display: block;
             margin-bottom: 0.5rem;
+            transition: 0.3s;
         }
+
+        .nav-back:hover { opacity: 0.7; transform: translateX(-5px); }
 
         h1 { 
             font-size: 3rem; 
@@ -46,31 +57,29 @@
             padding: 0 20px 100px 20px;
         }
 
-        /* Smaller, tighter grid */
         .project-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
             gap: 40px;
         }
 
-        /* The Project Item */
         .project-item {
             text-decoration: none;
             color: inherit;
             display: block;
-            transition: all 0.3s ease;
+            perspective: 1000px; /* Needed for tilt */
         }
 
-        /* The Image "Button" */
         .img-container {
             width: 100%;
-            aspect-ratio: 1 / 1; /* Square images look cleaner in smaller grids */
+            aspect-ratio: 1 / 1;
             background: #12081f;
             border: 1px solid #1f1433;
             border-radius: 20px;
             overflow: hidden;
             margin-bottom: 15px;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: border-color 0.4s ease, box-shadow 0.4s ease;
+            transform-style: preserve-3d;
         }
 
         .img-container img {
@@ -81,11 +90,10 @@
             transition: all 0.4s ease;
         }
 
-        /* Hover Effects */
+        /* Border Glow Effect */
         .project-item:hover .img-container {
-            transform: translateY(-8px);
             border-color: #a78bfa;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.5), 0 0 15px rgba(167, 139, 250, 0.2);
+            box-shadow: 0 0 20px rgba(167, 139, 250, 0.4);
         }
 
         .project-item:hover .img-container img {
@@ -93,10 +101,7 @@
             transform: scale(1.05);
         }
 
-        /* Text Under the Button */
-        .project-info {
-            padding-left: 5px;
-        }
+        .project-info { padding-left: 5px; }
 
         .project-tag {
             font-family: monospace;
@@ -112,26 +117,27 @@
             font-weight: bold;
             color: #fff;
             margin-top: 2px;
+            transition: 0.3s;
         }
 
-        .project-item:hover .project-title {
-            color: #a78bfa;
-        }
+        .project-item:hover .project-title { color: #a78bfa; }
 
         footer { text-align: center; padding: 50px; color: #1f1433; font-size: 0.7rem; letter-spacing: 2px; }
     </style>
 </head>
 <body>
 
+    <canvas id="bg-canvas"></canvas>
+
     <header>
-        <a href="/" class="nav-back">← Return</a>
+        <a href="index.html" class="nav-back">← Back to Home</a>
         <h1>Projects</h1>
     </header>
 
     <div class="container">
         <div class="project-grid">
             
-            <a href="wordle.html" class="project-item">
+            <a href="wordle.html" class="project-item" data-tilt>
                 <div class="img-container">
                     <img src="wordle.webp" alt="WORDLE">
                 </div>
@@ -141,9 +147,9 @@
                 </div>
             </a>
 
-            <a href="polytrack.html" class="project-item">
+            <a href="polytrack.html" class="project-item" data-tilt>
                 <div class="img-container">
-                    <img src="polytrack.webp" alt="P2">
+                    <img src="polytrack.webp" alt="POLY">
                 </div>
                 <div class="project-info">
                     <span class="project-tag">DRIVING</span>
@@ -151,9 +157,9 @@
                 </div>
             </a>
 
-            <a href="slope.html" class="project-item">
+            <a href="slope.html" class="project-item" data-tilt>
                 <div class="img-container">
-                    <img src="slope.webp" alt="P3">
+                    <img src="slope.webp" alt="SLOPE">
                 </div>
                 <div class="project-info">
                     <span class="project-tag">FUN</span>
@@ -161,7 +167,7 @@
                 </div>
             </a>
 
-            <a href="./game4/" class="project-item">
+            <a href="./game4/" class="project-item" data-tilt>
                 <div class="img-container">
                     <img src="preview4.jpg" alt="P4">
                 </div>
@@ -171,7 +177,7 @@
                 </div>
             </a>
 
-            <a href="./game5/" class="project-item">
+            <a href="./game5/" class="project-item" data-tilt>
                 <div class="img-container">
                     <img src="preview5.jpg" alt="P5">
                 </div>
@@ -184,9 +190,62 @@
         </div>
     </div>
 
-    <footer>
-        OLVRLEB // V2.0
-    </footer>
+    <footer>OLVRLEB // V2.0</footer>
 
+    <script>
+        // 1. Particle Background Logic
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function initParticles() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles = [];
+            for(let i=0; i<50; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 2,
+                    speed: Math.random() * 0.5 + 0.1
+                });
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0,0,canvas.width, canvas.height);
+            ctx.fillStyle = '#a78bfa';
+            particles.forEach(p => {
+                p.y -= p.speed;
+                if(p.y < 0) p.y = canvas.height;
+                ctx.globalAlpha = 0.2;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
+                ctx.fill();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        // 2. Simple Tilt Logic
+        document.querySelectorAll('.project-item').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const xc = rect.width / 2;
+                const yc = rect.height / 2;
+                const dx = x - xc;
+                const dy = y - yc;
+                card.querySelector('.img-container').style.transform = `rotateY(${dx/15}deg) rotateX(${-dy/15}deg)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.querySelector('.img-container').style.transform = 'rotateY(0) rotateX(0)';
+            });
+        });
+
+        window.addEventListener('resize', initParticles);
+        initParticles();
+        animate();
+    </script>
 </body>
 </html>
