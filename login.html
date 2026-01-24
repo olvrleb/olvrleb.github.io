@@ -2,103 +2,119 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Member Access | v2</title>
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body { 
-            background: #07020d; color: #ecebff; 
-            font-family: 'Helvetica Neue', sans-serif;
-            display: flex; justify-content: center; align-items: center; height: 100vh;
+            background-color: #07020d; 
+            /* Same pattern as index and projects */
+            background-image: radial-gradient(#1a0b2e 1px, transparent 1px);
+            background-size: 30px 30px;
+            color: #ecebff; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            overflow: hidden;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
         }
+
         .auth-card {
             background: rgba(18, 8, 31, 0.8);
-            padding: 40px; border-radius: 20px;
-            border: 1px solid #1f1433; width: 350px; text-align: center;
+            padding: 40px; 
+            border-radius: 20px;
+            border: 1px solid #1f1433; 
+            width: 350px; 
+            text-align: center;
             backdrop-filter: blur(10px);
+            z-index: 10;
         }
+
         input {
             width: 100%; padding: 12px; margin: 10px 0;
             background: #07020d; border: 1px solid #1f1433;
-            color: white; border-radius: 8px;
+            color: white; border-radius: 8px; outline: none;
         }
+
         button {
             width: 100%; padding: 12px; background: #a78bfa;
             border: none; border-radius: 50px; font-weight: bold;
-            cursor: pointer; margin-top: 10px;
+            cursor: pointer; margin-top: 10px; transition: 0.3s;
+            text-transform: uppercase; letter-spacing: 1px;
         }
-        #user-info { display: none; }
+
+        button:hover { transform: scale(1.02); background: #fff; }
+
+        /* Background Vignette */
+        body::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, transparent 20%, #07020d 100%);
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
 
     <div class="auth-card" id="auth-form">
-        <h2 style="letter-spacing: 2px;">JOIN V2</h2>
+        <h2 style="letter-spacing: 2px; color: #a78bfa; margin-bottom: 10px;">JOIN V2</h2>
         <input type="email" id="email" placeholder="Email">
         <input type="password" id="password" placeholder="Password">
-        <button onclick="signUp()">CREATE ACCOUNT</button>
-        <button onclick="login()" style="background: transparent; color: #a78bfa; border: 1px solid #a78bfa;">LOG IN</button>
+        <button onclick="signUp()">Create Account</button>
+        <button onclick="login()" style="background: transparent; color: #a78bfa; border: 1px solid #a78bfa; margin-top: 15px;">Log In</button>
     </div>
 
-<div class="auth-card" id="user-info" style="display: none;">
-    <h2 id="welcome-header">WELCOME BACK</h2>
-    <p id="user-email"></p>
+    <div class="auth-card" id="user-info" style="display: none;">
+        <h2 id="welcome-header" style="color: #a78bfa; letter-spacing: 2px; text-transform: uppercase;">WELCOME BACK</h2>
+        <p id="user-email" style="color: rgba(236, 235, 255, 0.5); margin: 10px 0; font-size: 0.8rem;"></p>
 
-    <div id="admin-tools" style="display: none; border-top: 1px solid #333; margin-top: 20px; padding-top: 20px;">
-        <h3 style="color: #ff4500; font-size: 0.8rem;">OWNER COMMANDS</h3>
-        <button onclick="alert('Systems Online')" style="margin-top: 10px; background: #1a0b2e; border: 1px solid #ff4500; color: white; padding: 5px 10px; cursor: pointer;">DIAGNOSTICS</button>
+        <div id="admin-tools" style="display: none; border-top: 1px solid #1f1433; margin-top: 20px; padding-top: 20px;">
+            <p style="font-size: 0.6rem; color: #a78bfa; letter-spacing: 2px; margin-bottom: 15px; text-transform: uppercase; opacity: 0.8;">Owner Terminal // v2</p>
+            <button onclick="alert('All systems operational.')" 
+                style="background: rgba(167, 139, 250, 0.05); border: 1px solid #a78bfa; color: #a78bfa; font-size: 0.7rem; padding: 12px; cursor: pointer; width: 100%; border-radius: 50px; font-weight: bold;">
+                RUN SYSTEM DIAGNOSTICS
+            </button>
+        </div>
+
+        <button onclick="logout()" style="margin-top: 20px; background: transparent; border: 1px solid #1f1433; color: #ecebff; padding: 10px 20px; border-radius: 50px;">LOG OUT</button>
+        <br><br>
+        <a href="projects.html" style="color: rgba(236, 235, 255, 0.4); text-decoration: none; font-size: 0.75rem; letter-spacing: 1px; font-weight: bold; text-transform: uppercase;">← BACK TO GAMES</a>
     </div>
-
-    <button onclick="logout()" style="margin-top: 20px;">LOG OUT</button>
-</div>
 
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 
     <script>
-const firebaseConfig = {
-  apiKey: "AIzaSyBYFduTRHgXE98u2QQ3B6YIrQEEJev7Mv0",
-  authDomain: "olvrleb-v2.firebaseapp.com",
-  projectId: "olvrleb-v2",
-  storageBucket: "olvrleb-v2.firebasestorage.app",
-  messagingSenderId: "460321574988",
-  appId: "1:460321574988:web:685899038f9edb0a09e4e9",
-  measurementId: "G-220BGVZW8M"
-};
+        // PASTE YOUR REAL CONFIG HERE
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT.appspot.com",
+            messagingSenderId: "YOUR_ID",
+            appId: "YOUR_APP_ID"
+        };
 
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
 
         function signUp() {
-            const email = document.getElementById('email').value;
-            const pass = document.getElementById('password').value;
-            auth.createUserWithEmailAndPassword(email, pass).catch(e => alert(e.message));
-        }
-
-        function login() {
-            const email = document.getElementById('email').value;
-            const pass = document.getElementById('password').value;
-            auth.signInWithEmailAndPassword(email, pass).catch(e => alert(e.message));
-        }
-
-        function logout() { auth.signOut(); }
-
-        // 1. The Sign Up Function
-        function signUp() {
             const email = document.getElementById('email').value.trim();
             const pass = document.getElementById('password').value;
             auth.createUserWithEmailAndPassword(email, pass).catch(e => alert(e.message));
         }
 
-        // 2. The Login Function
         function login() {
             const email = document.getElementById('email').value.trim();
             const pass = document.getElementById('password').value;
             auth.signInWithEmailAndPassword(email, pass).catch(e => alert(e.message));
         }
 
-        // 3. The Logout Function
         function logout() { auth.signOut(); }
 
-        // 4. The "Owner-Aware" State Logic
         auth.onAuthStateChanged(user => {
             const userBox = document.getElementById('user-info');
             const authForm = document.getElementById('auth-form');
@@ -109,17 +125,15 @@ const firebaseConfig = {
                 authForm.style.display = 'none';
                 userBox.style.display = 'block';
 
-                // THE OWNER CHECK
                 if (user.email === "oliverleblanc9@gmail.com") {
                     welcomeText.innerText = "WELCOME, OWNER";
-                    welcomeText.style.color = "#ff4500"; // Fiery orange
+                    welcomeText.style.color = "#a78bfa";
                     if(adminTools) adminTools.style.display = 'block'; 
                 } else {
                     welcomeText.innerText = "WELCOME BACK";
-                    welcomeText.style.color = "#a78bfa"; // Regular purple
+                    welcomeText.style.color = "#a78bfa";
                     if(adminTools) adminTools.style.display = 'none';
                 }
-
                 document.getElementById('user-email').innerText = user.email;
             } else {
                 authForm.style.display = 'block';
