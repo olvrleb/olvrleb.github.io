@@ -3,135 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>olvrleb | project v2</title>
+    <title>olvrleb | v2</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
         body { 
-            font-family: 'Inter', 'Segoe UI', sans-serif; 
-            background-color: #07020d; /* Even deeper midnight */
-            color: #ecebff;
-            line-height: 1.6;
+            background-color: #07020d; 
+            color: #ecebff; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            overflow: hidden;
+            font-family: 'Helvetica', 'Arial', sans-serif; /* Helvetica Priority */
         }
-
-        /* Hero / Welcome Section */
-        header {
-            padding: 8rem 2rem 4rem 2rem;
-            text-align: left;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .brand {
-            font-size: 1rem;
+        .welcome-content { text-align: center; }
+        .brand { 
+            font-size: 1.2rem; 
+            letter-spacing: 8px; 
+            color: #a78bfa; 
             text-transform: uppercase;
-            letter-spacing: 4px;
-            color: #a78bfa;
-            margin-bottom: 1rem;
+            margin-bottom: 20px;
             display: block;
         }
-
         h1 { 
-            font-size: 4rem; 
-            letter-spacing: -2px; 
-            line-height: 1;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(to right, #fff, #a78bfa);
+            font-size: 6rem; /* Huge Helvetica title */
+            font-weight: bold;
+            letter-spacing: -4px;
+            margin-bottom: 40px;
+            background: linear-gradient(to bottom, #fff, #4b3e63);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-
-        .welcome-msg {
-            max-width: 600px;
-            font-size: 1.1rem;
-            color: #94a3b8;
-            border-left: 2px solid #2d1b4e;
-            padding-left: 1.5rem;
-        }
-
-        /* Grid */
-        .container {
-            max-width: 1100px;
-            margin: 2rem auto 6rem auto;
-            padding: 0 20px;
-        }
-
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 20px;
-        }
-
-        /* Project Cards */
-        .card {
-            background: #0f081a;
-            border: 1px solid #1f1433;
-            padding: 30px;
-            border-radius: 4px; /* Sharper, more modern corners */
-            text-decoration: none;
-            color: inherit;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .card:hover {
-            background: #160d25;
-            border-color: #a78bfa;
-            transform: scale(1.02);
-        }
-
-        .version-tag {
-            font-family: monospace;
-            font-size: 0.75rem;
-            color: #6d28d9;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .card-title {
+        .enter-link {
             font-size: 1.5rem;
-            margin-bottom: 10px;
-            font-weight: 600;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 30px;
+            border: 1px solid #2d1b4e;
+            transition: all 0.3s;
+            border-radius: 2px;
         }
-
-        .card-desc {
-            color: #64748b;
-            font-size: 0.95rem;
-        }
-
-        footer { 
-            padding: 4rem; 
-            text-align: center; 
-            font-size: 0.8rem; 
-            color: #2d1b4e;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        .enter-link:hover {
+            background: #a78bfa;
+            color: #07020d;
+            box-shadow: 0 0 30px rgba(167, 139, 250, 0.4);
         }
     </style>
 </head>
 <body>
-
-    <header>
+    <div class="welcome-content">
         <span class="brand">olvrleb</span>
         <h1>project v2</h1>
-        <div class="welcome-msg">
-            Welcome to the next iteration. This space serves as the primary deployment hub for experimental builds and interactive projects. Explore the entries below.
-        </div>
-    </header>
-
-    <div class="container">
-        <div class="project-grid">
-            
-            <a href="./game-folder-1/" class="card">
-                <span class="version-tag">STABLE_BUILD_01</span>
-                <h3 class="card-title">Project Alpha</h3>
-                <p class="card-desc">Tactical movement simulation built for high-performance browsers.</p>
-            </a>
-            </div>
+        <a href="projects.html" class="enter-link">ENTER SYSTEMS</a>
     </div>
-
-    <footer>
-        &copy; 2026 olvrleb // system_status: online
-    </footer>
-
 </body>
 </html>
