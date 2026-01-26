@@ -17,7 +17,6 @@
             overflow-x: hidden;
         }
 
-        /* Particle Canvas Style */
         #bg-canvas {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -67,7 +66,7 @@
             text-decoration: none;
             color: inherit;
             display: block;
-            perspective: 1000px; /* Needed for tilt */
+            perspective: 1000px;
         }
 
         .img-container {
@@ -90,7 +89,6 @@
             transition: all 0.4s ease;
         }
 
-        /* Border Glow Effect */
         .project-item:hover .img-container {
             border-color: #a78bfa;
             box-shadow: 0 0 20px rgba(167, 139, 250, 0.4);
@@ -187,13 +185,62 @@
                 </div>
             </a>
 
+            <a href="./game6/" class="project-item" data-tilt>
+                <div class="img-container">
+                    <img src="preview6.jpg" alt="P6">
+                </div>
+                <div class="project-info">
+                    <span class="project-tag">STABLE_V2</span>
+                    <div class="project-title">PROJECT_06</div>
+                </div>
+            </a>
+
+            <a href="./game7/" class="project-item" data-tilt>
+                <div class="img-container">
+                    <img src="preview7.jpg" alt="P7">
+                </div>
+                <div class="project-info">
+                    <span class="project-tag">STABLE_V2</span>
+                    <div class="project-title">PROJECT_07</div>
+                </div>
+            </a>
+
+            <a href="./game8/" class="project-item" data-tilt>
+                <div class="img-container">
+                    <img src="preview8.jpg" alt="P8">
+                </div>
+                <div class="project-info">
+                    <span class="project-tag">STABLE_V2</span>
+                    <div class="project-title">PROJECT_08</div>
+                </div>
+            </a>
+
+            <a href="./game9/" class="project-item" data-tilt>
+                <div class="img-container">
+                    <img src="preview9.jpg" alt="P9">
+                </div>
+                <div class="project-info">
+                    <span class="project-tag">STABLE_V2</span>
+                    <div class="project-title">PROJECT_09</div>
+                </div>
+            </a>
+
+            <a href="./game10/" class="project-item" data-tilt>
+                <div class="img-container">
+                    <img src="preview10.jpg" alt="P10">
+                </div>
+                <div class="project-info">
+                    <span class="project-tag">STABLE_V2</span>
+                    <div class="project-title">PROJECT_10</div>
+                </div>
+            </a>
+
         </div>
     </div>
 
     <footer>OLVRLEB // V2.0</footer>
 
     <script>
-        // 1. Particle Background Logic
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -226,7 +273,6 @@
             requestAnimationFrame(animate);
         }
 
-        // 2. Simple Tilt Logic
         document.querySelectorAll('.project-item').forEach(card => {
             card.addEventListener('mousemove', e => {
                 const rect = card.getBoundingClientRect();
