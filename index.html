@@ -3,88 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TDAC | Thorny Devil Research & Appreciation</title>
+    <title>TDAC | Thorny Devil Research</title>
     <style>
         :root {
-            --thorny-yellow: #f4d03f;
-            --sand-pale: #fdf6e3;
-            --desert-brown: #8d6e63;
-            --deep-red: #a04000;
+            --accent-gold: #FFD700;
+            --soft-cream: #FFFDF5;
+            --deep-slate: #2D3436;
+            --glass-white: rgba(255, 255, 255, 0.8);
         }
-        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: var(--sand-pale); color: #2c3e50; margin: 0; padding: 0; }
-        header { background: var(--thorny-yellow); padding: 50px 20px; text-align: center; border-bottom: 6px solid var(--desert-brown); }
-        .main-container { max-width: 950px; margin: 30px auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        
-        h1 { margin: 0; color: var(--deep-red); font-size: 2.5em; text-transform: uppercase; }
-        h2 { color: var(--desert-brown); border-bottom: 2px solid var(--thorny-yellow); padding-bottom: 10px; margin-top: 40px; }
-        
-        .scientific-meta { font-style: italic; color: #7f8c8d; margin-bottom: 30px; }
-        
-        .fact-section { display: flex; gap: 30px; align-items: flex-start; margin-bottom: 30px; }
-        .text-content { flex: 2; }
-        .sidebar { flex: 1; background: #f9f9f9; padding: 20px; border-radius: 8px; border: 1px solid #eee; font-size: 0.9em; }
 
-        /* Secret Portal Styling */
-        footer { margin-top: 80px; padding: 40px; text-align: center; background: #eee; border-radius: 0 0 12px 12px; }
-        .admin-access { color: #aaa; text-decoration: none; cursor: pointer; font-size: 0.75em; transition: 0.3s; }
-        .admin-access:hover { color: var(--desert-brown); }
-        #secret-box { display: none; margin: 15px auto; width: 180px; }
-        #secret-box input { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; text-align: center; font-family: monospace; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+            background-color: var(--soft-cream); 
+            color: var(--deep-slate); 
+            margin: 0; 
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Modern Navigation Bar */
+        nav {
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--glass-white);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .logo { font-weight: 800; font-size: 1.2rem; letter-spacing: -0.5px; }
+
+        /* Hero Section */
+        header {
+            padding: 100px 20px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--accent-gold) 0%, var(--soft-cream) 100%);
+        }
+
+        h1 { font-size: 3.5rem; margin: 0; font-weight: 800; letter-spacing: -2px; line-height: 1; }
+        .subtitle { font-size: 1.1rem; opacity: 0.7; margin-top: 15px; }
+
+        .container { max-width: 1000px; margin: -50px auto 50px; padding: 0 20px; }
+
+        /* Modern Card Design */
+        .main-card {
+            background: white;
+            padding: 60px;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.04);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .feature {
+            padding: 30px;
+            border-radius: 20px;
+            background: #fbfbfd;
+            transition: transform 0.3s ease;
+        }
+
+        .feature:hover { transform: translateY(-5px); }
+
+        .emoji-icon { font-size: 2.5rem; margin-bottom: 15px; display: block; }
+
+        /* Hidden Portal - ultra clean */
+        footer {
+            padding: 100px 20px;
+            text-align: center;
+            opacity: 0.4;
+        }
+
+        #admin-trigger { 
+            cursor: pointer; 
+            font-size: 0.7rem; 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+        }
+
+        #portal-input {
+            display: none;
+            margin: 20px auto;
+            border: none;
+            border-bottom: 2px solid var(--accent-gold);
+            background: transparent;
+            padding: 10px;
+            text-align: center;
+            font-size: 1rem;
+            outline: none;
+            width: 150px;
+        }
     </style>
 </head>
 <body>
 
+<nav>
+    <div class="logo">TDAC.ORG</div>
+    <div style="font-size: 0.9rem; font-weight: 500;">Research Center 2026</div>
+</nav>
+
 <header>
-    <h1>Thorny Devil Appreciation Club</h1>
-    <p>Biology Project: Adaptive Morphology of <em>Moloch horridus</em></p>
+    <h1>The Thorny Devil.</h1>
+    <p class="subtitle">A masterclass in desert survival and evolutionary biology.</p>
 </header>
 
-<div class="main-container">
-    <p class="scientific-meta">Phylum: Chordata | Class: Reptilia | Family: Agamidae</p>
+<div class="container">
+    <div class="main-card">
+        <h2>Overview</h2>
+        <p>The <i>Moloch horridus</i> represents one of nature's most sophisticated physiological designs. Operating primarily within the Great Sandy Desert, these organisms have developed non-traditional methods for hydration and defense.</p>
 
-    <div class="fact-section">
-        <div class="text-content">
-            <h2>Hygroscopic Water Transport</h2>
-            <p>One of the most significant adaptations of the Thorny Devil is its ability to harvest moisture from arid environments. The skin surface is micro-structured with semi-tubular channels between overlapping scales. These channels act as <strong>capillaries</strong>, pulling water from damp sand or morning dew against the force of gravity directly toward the buccal cavity (mouth).</p>
-            
-            <h2>Convergent Evolution</h2>
-            <p>The Thorny Devil is a classic example of <em>convergent evolution</em>. While it looks remarkably similar to the North American Horned Lizard (<em>Phrynosoma</em>), they are only distantly related. Both have independently evolved spiny armor and ant-specialized diets to thrive in similar desert niches.</p>
-        </div>
-        
-        <div class="sidebar">
-            <strong>Quick Stats:</strong>
-            <ul>
-                <li><strong>Diet:</strong> Obligate Myrmecophagy (Ants)</li>
-                <li><strong>Max Length:</strong> 21 cm (8.3 in)</li>
-                <li><strong>Longevity:</strong> 15-20 years</li>
-                <li><strong>Habitat:</strong> Great Sandy Desert, AU</li>
-            </ul>
-            <p><em>Note: A single adult can consume up to 2,500 ants in a single feeding session.</em></p>
+        <div class="grid">
+            <div class="feature">
+                <span class="emoji-icon">💧</span>
+                <h3>Capillary Hydration</h3>
+                <p>Advanced skin grooves allow for moisture collection via passive transport, requiring zero metabolic energy.</p>
+            </div>
+            <div class="feature">
+                <span class="emoji-icon">🌵</span>
+                <h3>Dermal Armor</h3>
+                <p>The spiked exterior provides both thermal regulation and a significant deterrent against local predators.</p>
+            </div>
+            <div class="feature">
+                <span class="emoji-icon">🐜</span>
+                <h3>Dietary Focus</h3>
+                <p>Strictly myrmecophagous, focusing on specific ant species to maintain nutritional equilibrium.</p>
+            </div>
+            <div class="feature">
+                <span class="emoji-icon">🛡️</span>
+                <h3>Decoy Systems</h3>
+                <p>The "False Head" serves as a primary survival mechanism during high-intensity encounters.</p>
+            </div>
         </div>
     </div>
-
-    <h2>Defensive Mechanisms</h2>
-    <p>Beyond its dermal armor, the <em>Moloch horridus</em> utilizes a "False Head" — a spiny fibrous mound on the back of its neck. When threatened, the lizard tucks its real head between its front legs, presenting the decoy to predators. Furthermore, they can inflate their chests with air to become harder to swallow.</p>
-
-    <footer>
-        <p>&copy; 2026 Arid Ecosystems Research Division</p>
-        <span class="admin-access" onclick="toggleSecret()">[Librarian Access]</span>
-        <div id="secret-box">
-            <input type="text" id="passcode" placeholder="Project ID..." oninput="verifyJump()">
-        </div>
-    </footer>
 </div>
 
+<footer>
+    <span id="admin-trigger" onclick="revealInput()">System Access</span>
+    <br>
+    <input type="text" id="portal-input" placeholder="Credential ID..." oninput="checkLink()">
+    <p style="margin-top: 20px;">&copy; 2026 Thorny Devil Appreciation Club</p>
+</footer>
+
 <script>
-    function toggleSecret() {
-        var box = document.getElementById("secret-box");
-        box.style.display = (box.style.display === "block") ? "none" : "block";
+    function revealInput() {
+        document.getElementById('portal-input').style.display = 'block';
+        document.getElementById('portal-input').focus();
     }
 
-    function verifyJump() {
-        var input = document.getElementById("passcode").value.toLowerCase();
-        // If you type 'project', it takes you to projects.html
-        if (input === "project") {
+    function checkLink() {
+        const val = document.getElementById('portal-input').value.toLowerCase();
+        if (val === "project") {
             window.location.href = "projects.html";
         }
     }
