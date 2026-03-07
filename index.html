@@ -1,170 +1,602 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TDAC | Thorny Devil Research</title>
-    <style>
-        :root {
-            --accent-gold: #FFD700;
-            --soft-cream: #FFFDF5;
-            --deep-slate: #2D3436;
-            --glass-white: rgba(255, 255, 255, 0.8);
-        }
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Observable Universe — Cosmos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
-            background-color: var(--soft-cream); 
-            color: var(--deep-slate); 
-            margin: 0; 
-            padding: 0;
-            -webkit-font-smoothing: antialiased;
-        }
+    :root {
+      --bg: #0b0013;
+      --surface: rgba(255,255,255,.04);
+      --border: rgba(255,255,255,.07);
+      --purple-dim: #4a2d7a;
+      --purple-mid: #7c3aed;
+      --purple-bright: #c4b5fd;
+      --text-primary: #e8e0f5;
+      --text-body: #a89fc0;
+      --text-muted: #5a4a72;
+    }
 
-        /* Modern Navigation Bar */
-        nav {
-            padding: 20px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--glass-white);
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-        }
+    html { scroll-behavior: smooth; }
 
-        .logo { font-weight: 800; font-size: 1.2rem; letter-spacing: -0.5px; }
+    body {
+      font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text-body);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1;
+    }
 
-        /* Hero Section */
-        header {
-            padding: 100px 20px;
-            text-align: center;
-            background: linear-gradient(180deg, var(--accent-gold) 0%, var(--soft-cream) 100%);
-        }
+    .page {
+      max-width: 660px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
 
-        h1 { font-size: 3.5rem; margin: 0; font-weight: 800; letter-spacing: -2px; line-height: 1; }
-        .subtitle { font-size: 1.1rem; opacity: 0.7; margin-top: 15px; }
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 1.4rem 0;
+      margin-bottom: 4.5rem;
+    }
+    header .page {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .site-name {
+      font-size: .8rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: .02em;
+    }
+    .site-tag {
+      font-size: .72rem;
+      color: var(--purple-dim);
+      font-weight: 400;
+    }
 
-        .container { max-width: 1000px; margin: -50px auto 50px; padding: 0 20px; }
+    .article-header { margin-bottom: 3rem; }
+    .article-kicker {
+      font-size: .72rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--purple-mid);
+      margin-bottom: 1.1rem;
+    }
+    .article-header h1 {
+      font-size: 2.1rem;
+      font-weight: 600;
+      line-height: 1.18;
+      color: var(--text-primary);
+      letter-spacing: -.03em;
+      margin-bottom: 1.1rem;
+    }
+    .article-deck {
+      font-size: 1rem;
+      font-weight: 300;
+      color: #8b7aad;
+      line-height: 1.7;
+      border-left: 2px solid var(--purple-mid);
+      padding-left: 1rem;
+    }
+    .article-meta {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1.75rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+    }
+    .meta-item { font-size: .75rem; color: var(--text-muted); }
+    .meta-item strong {
+      display: block;
+      color: #6d5a8a;
+      font-weight: 500;
+      margin-bottom: .2rem;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      font-size: .68rem;
+    }
 
-        /* Modern Card Design */
-        .main-card {
-            background: white;
-            padding: 60px;
-            border-radius: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.04);
-        }
+    .body-text {
+      font-size: .9375rem;
+      line-height: 1.8;
+      color: var(--text-body);
+      margin-bottom: 1.5rem;
+      font-weight: 300;
+    }
 
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin-top: 50px;
-        }
+    .section-head { margin: 3.5rem 0 1.25rem; }
+    .section-head h2 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -.02em;
+    }
+    .section-head .section-num {
+      font-size: .7rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--purple-mid);
+      margin-bottom: .5rem;
+    }
 
-        .feature {
-            padding: 30px;
-            border-radius: 20px;
-            background: #fbfbfd;
-            transition: transform 0.3s ease;
-        }
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 3rem 0;
+    }
 
-        .feature:hover { transform: translateY(-5px); }
+    .pull-quote {
+      margin: 2.5rem 0;
+      padding: 1.5rem 1.5rem 1.5rem 1.25rem;
+      background: rgba(109,40,217,.06);
+      border-left: 2px solid rgba(109,40,217,.4);
+      border-radius: 0 6px 6px 0;
+    }
+    .pull-quote p {
+      font-size: .9375rem;
+      font-weight: 300;
+      font-style: italic;
+      color: #b8a8d8;
+      line-height: 1.7;
+    }
+    .pull-quote cite {
+      display: block;
+      margin-top: .65rem;
+      font-size: .75rem;
+      color: var(--text-muted);
+      font-style: normal;
+    }
 
-        .emoji-icon { font-size: 2.5rem; margin-bottom: 15px; display: block; }
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      font-size: .83rem;
+    }
+    .data-table thead tr { border-bottom: 1px solid rgba(109,40,217,.3); }
+    .data-table th {
+      text-align: left;
+      font-size: .68rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--purple-dim);
+      padding: 0 1rem .75rem 0;
+    }
+    .data-table td {
+      padding: .75rem 1rem .75rem 0;
+      color: var(--text-body);
+      font-weight: 300;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .data-table td:first-child { color: var(--text-primary); font-weight: 400; }
+    .data-table tr:last-child td { border-bottom: none; }
 
-        /* Hidden Portal - ultra clean */
-        footer {
-            padding: 100px 20px;
-            text-align: center;
-            opacity: 0.4;
-        }
+    .callout {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.4rem 1.5rem;
+      margin: 2rem 0;
+    }
+    .callout-label {
+      font-size: .68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--purple-mid);
+      margin-bottom: .65rem;
+    }
+    .callout p {
+      font-size: .875rem;
+      font-weight: 300;
+      color: #9585b8;
+      line-height: 1.7;
+    }
 
-        #admin-trigger { 
-            cursor: pointer; 
-            font-size: 0.7rem; 
-            text-transform: uppercase; 
-            letter-spacing: 1px;
-        }
+    .inline-stats {
+      display: flex;
+      gap: 0;
+      margin: 2.5rem 0;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .inline-stat {
+      flex: 1;
+      padding: 1.25rem;
+      border-right: 1px solid var(--border);
+    }
+    .inline-stat:last-child { border-right: none; }
+    .inline-stat .val {
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: var(--purple-bright);
+      letter-spacing: -.03em;
+      line-height: 1;
+      margin-bottom: .35rem;
+    }
+    .inline-stat .lbl {
+      font-size: .72rem;
+      color: var(--text-muted);
+      font-weight: 400;
+      line-height: 1.4;
+    }
 
-        #portal-input {
-            display: none;
-            margin: 20px auto;
-            border: none;
-            border-bottom: 2px solid var(--accent-gold);
-            background: transparent;
-            padding: 10px;
-            text-align: center;
-            font-size: 1rem;
-            outline: none;
-            width: 150px;
-        }
-    </style>
+    .timeline { margin: 2rem 0; }
+    .tl-item {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 1.25rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .tl-item:first-child { border-top: 1px solid var(--border); }
+    .tl-year {
+      font-size: .78rem;
+      font-weight: 500;
+      color: var(--purple-mid);
+      padding-top: .1rem;
+      letter-spacing: -.01em;
+    }
+    .tl-content h4 {
+      font-size: .875rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: .3rem;
+    }
+    .tl-content p {
+      font-size: .83rem;
+      font-weight: 300;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    footer {
+      margin-top: 5rem;
+      border-top: 1px solid var(--border);
+      padding: 2rem 0 3rem;
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    footer p { font-size: .73rem; color: var(--text-muted); }
+
+    .sys-access {
+      font-size: .65rem;
+      color: #2a1f3d;
+      cursor: pointer;
+      user-select: none;
+      letter-spacing: .04em;
+      transition: color .2s;
+      background: none;
+      border: none;
+      font-family: inherit;
+      padding: 0;
+    }
+    .sys-access:hover { color: #4a3a66; }
+    .sys-input-wrap { display: none; margin-top: .5rem; }
+    .sys-input-wrap.visible { display: flex; align-items: center; gap: .5rem; }
+    .sys-input {
+      background: none;
+      border: none;
+      border-bottom: 1px solid #2a1f3d;
+      color: #4a3a66;
+      font-family: inherit;
+      font-size: .65rem;
+      padding: .1rem .2rem;
+      outline: none;
+      width: 80px;
+      letter-spacing: .05em;
+    }
+    .sys-input::placeholder { color: #2a1f3d; }
+    .sys-input:focus { border-bottom-color: #4a3a66; }
+    .sys-error { font-size: .6rem; color: #4a1a2a; display: none; }
+  </style>
 </head>
 <body>
 
-<nav>
-    <div class="logo">TDAC.ORG</div>
-    <div style="font-size: 0.9rem; font-weight: 500;">Research Center 2026</div>
-</nav>
-
-<header>
-    <h1>The Thorny Devil.</h1>
-    <p class="subtitle">A masterclass in desert survival and evolutionary biology.</p>
-</header>
-
-<div class="container">
-    <div class="main-card">
-        <h2>Overview</h2>
-        <p>The <i>Moloch horridus</i> represents one of nature's most sophisticated physiological designs. Operating primarily within the Great Sandy Desert, these organisms have developed non-traditional methods for hydration and defense.</p>
-
-        <div class="grid">
-            <div class="feature">
-                <span class="emoji-icon">💧</span>
-                <h3>Capillary Hydration</h3>
-                <p>Advanced skin grooves allow for moisture collection via passive transport, requiring zero metabolic energy.</p>
-            </div>
-            <div class="feature">
-                <span class="emoji-icon">🌵</span>
-                <h3>Dermal Armor</h3>
-                <p>The spiked exterior provides both thermal regulation and a significant deterrent against local predators.</p>
-            </div>
-            <div class="feature">
-                <span class="emoji-icon">🐜</span>
-                <h3>Dietary Focus</h3>
-                <p>Strictly myrmecophagous, focusing on specific ant species to maintain nutritional equilibrium.</p>
-            </div>
-            <div class="feature">
-                <span class="emoji-icon">🛡️</span>
-                <h3>Decoy Systems</h3>
-                <p>The "False Head" serves as a primary survival mechanism during high-intensity encounters.</p>
-            </div>
-        </div>
+  <header>
+    <div class="page">
+      <span class="site-name">Cosmos</span>
+      <span class="site-tag">Educational Reference</span>
     </div>
-</div>
+  </header>
 
-<footer>
-    <span id="admin-trigger" onclick="revealInput()">System Access</span>
-    <br>
-    <input type="text" id="portal-input" placeholder="Credential ID..." oninput="checkLink()">
-    <p style="margin-top: 20px;">&copy; 2026 Thorny Devil Appreciation Club</p>
-</footer>
+  <div class="page">
+    <article>
 
-<script>
-    function revealInput() {
-        document.getElementById('portal-input').style.display = 'block';
-        document.getElementById('portal-input').focus();
+      <div class="article-header">
+        <p class="article-kicker">Cosmology</p>
+        <h1>A Complete Guide to the Observable Universe</h1>
+        <p class="article-deck">Everything science currently knows about how the universe began, what it contains, and where it is headed — explained from first principles.</p>
+        <div class="article-meta">
+          <div class="meta-item"><strong>Reading time</strong>~18 minutes</div>
+          <div class="meta-item"><strong>Level</strong>General audience</div>
+          <div class="meta-item"><strong>Last updated</strong>March 2026</div>
+        </div>
+      </div>
+
+      <div class="section-head">
+        <p class="section-num">§ 01</p>
+        <h2>What Is the Universe?</h2>
+      </div>
+
+      <p class="body-text">The universe is the totality of all space, time, matter, and energy. It encompasses every planet, star, galaxy, and the vast emptiness between them. As far as current physics can determine, it is the only such system — there is nothing "outside" it, because space itself is a property of the universe, not a container it exists within.</p>
+
+      <p class="body-text">The observable universe — the portion we can theoretically detect — spans roughly 93 billion light-years in diameter. This figure is larger than the 13.8-billion-year age of the universe might suggest, because space itself has been expanding since the beginning. Regions that emitted light shortly after the Big Bang have since moved much farther away, carried by that expansion.</p>
+
+      <div class="inline-stats">
+        <div class="inline-stat"><div class="val">93B ly</div><div class="lbl">Diameter of the observable universe</div></div>
+        <div class="inline-stat"><div class="val">13.8B yr</div><div class="lbl">Age since the Big Bang</div></div>
+        <div class="inline-stat"><div class="val">~2 trillion</div><div class="lbl">Galaxies within observable range</div></div>
+      </div>
+
+      <p class="body-text">The term "observable" is important. Beyond a certain distance — the cosmic horizon — light has not had time to reach us. Those regions almost certainly exist, but we have no observational access to them. Whether the universe is finite or infinite in total extent remains an open question in cosmology.</p>
+
+      <hr class="divider"/>
+
+      <div class="section-head">
+        <p class="section-num">§ 02</p>
+        <h2>The Big Bang</h2>
+      </div>
+
+      <p class="body-text">The prevailing scientific account of the universe's origin is the Big Bang theory. About 13.8 billion years ago, all the matter and energy that would become the observable universe was compressed into an extraordinarily hot, dense state. From that point, space itself began to expand — it did not explode into pre-existing space, but rather all of space was that initial singularity, and it expanded outward in every direction simultaneously.</p>
+
+      <p class="body-text">In the first fraction of a second, the universe underwent a period called cosmic inflation — an exponential expansion so rapid that regions of space that were initially in causal contact were flung far apart. Inflation explains why the cosmic microwave background radiation (CMB) is so uniform across the sky: everything we observe today was once in intimate thermal equilibrium.</p>
+
+      <div class="pull-quote">
+        <p>"The Big Bang is not an explosion in space — it is an explosion of space. The distinction matters enormously."</p>
+        <cite>— A common clarification in introductory cosmology</cite>
+      </div>
+
+      <p class="body-text">Within the first three minutes, protons and neutrons fused into the nuclei of the lightest elements — hydrogen, helium, and trace amounts of lithium — in a process called Big Bang nucleosynthesis. About 380,000 years later, the universe had cooled enough for electrons to bind with those nuclei, forming the first neutral atoms. This moment released the photons we now detect as the CMB: a faint glow of microwave radiation uniformly suffusing the entire sky, redshifted over billions of years of expansion.</p>
+
+      <div class="callout">
+        <p class="callout-label">Key Evidence for the Big Bang</p>
+        <p>The theory rests on three independent pillars: the observed expansion of the universe first documented by Edwin Hubble in 1929; the abundance of light elements (hydrogen and helium) matching nucleosynthesis predictions precisely; and the existence and temperature of the cosmic microwave background, first detected accidentally by Penzias and Wilson in 1965.</p>
+      </div>
+
+      <hr class="divider"/>
+
+      <div class="section-head">
+        <p class="section-num">§ 03</p>
+        <h2>Stars and Their Life Cycles</h2>
+      </div>
+
+      <p class="body-text">The first stars — called Population III stars — formed roughly 100 to 200 million years after the Big Bang. They were composed almost entirely of hydrogen and helium, the only elements then available, and were likely enormous: hundreds of times the mass of our Sun. Their lives were short and violent. When they died in supernovae, they seeded the surrounding gas with heavier elements for the first time.</p>
+
+      <p class="body-text">All subsequent generations of stars, including our Sun, form through the same fundamental process: a cloud of gas and dust collapses under its own gravity. As the core contracts, it heats until hydrogen atoms fuse into helium, releasing the energy that gives a star its luminosity. This balance between gravitational collapse and outward radiation pressure defines a star's stable lifetime — called its main sequence phase.</p>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Stellar Type</th>
+            <th>Mass (solar)</th>
+            <th>Lifespan</th>
+            <th>End State</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Red dwarf</td>
+            <td>0.08 – 0.5×</td>
+            <td>Trillions of years</td>
+            <td>White dwarf (directly)</td>
+          </tr>
+          <tr>
+            <td>Sun-like</td>
+            <td>0.5 – 2×</td>
+            <td>~10 billion years</td>
+            <td>Red giant → white dwarf</td>
+          </tr>
+          <tr>
+            <td>Massive</td>
+            <td>2 – 20×</td>
+            <td>Tens of millions of years</td>
+            <td>Supernova → neutron star</td>
+          </tr>
+          <tr>
+            <td>Hypermassive</td>
+            <td>>20×</td>
+            <td>Millions of years</td>
+            <td>Supernova → black hole</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="body-text">When a massive star exhausts its fuel, the core collapses in milliseconds. The resulting shockwave tears the outer layers apart in a supernova — one of the most energetic events in the universe. In that brief moment, the star briefly outshines its entire host galaxy. The explosion scatters heavy elements — carbon, oxygen, iron, gold — across the interstellar medium. Every atom in your body heavier than hydrogen was forged inside a dying star.</p>
+
+      <hr class="divider"/>
+
+      <div class="section-head">
+        <p class="section-num">§ 04</p>
+        <h2>Black Holes</h2>
+      </div>
+
+      <p class="body-text">A black hole is a region of spacetime where gravity is so intense that nothing — not even light — can escape once it crosses the event horizon. Black holes are not vacuums or cosmic drains; they exert the same gravitational pull as any object of equal mass. What makes them extreme is density: the entire mass is compressed into a singularity, a point where known physics breaks down.</p>
+
+      <p class="body-text">Stellar black holes form from the collapse of massive stars, typically ranging from a few to dozens of solar masses. Supermassive black holes — millions to billions of solar masses — lurk at the centers of virtually every large galaxy, including our own Milky Way. How these behemoths formed is still debated; they may have grown through mergers and accretion over billions of years, or from the direct collapse of enormous primordial gas clouds.</p>
+
+      <p class="body-text">Stephen Hawking's 1974 theoretical discovery that black holes slowly radiate energy — now called Hawking radiation — implies they are not truly permanent. A stellar black hole would take roughly 10⁶⁷ years to fully evaporate. Where the information encoded in the matter that fell in goes remains one of the deepest unsolved problems in theoretical physics: the black hole information paradox.</p>
+
+      <div class="pull-quote">
+        <p>"Black holes are where God divided by zero."</p>
+        <cite>— Attributed to Steven Wright</cite>
+      </div>
+
+      <hr class="divider"/>
+
+      <div class="section-head">
+        <p class="section-num">§ 05</p>
+        <h2>Dark Matter &amp; Dark Energy</h2>
+      </div>
+
+      <p class="body-text">Ordinary matter — everything made of atoms — constitutes only about 5% of the universe's total energy content. The remaining 95% is divided between two mysterious components: dark matter (~27%) and dark energy (~68%). Neither has been directly observed; both are inferred from their gravitational effects.</p>
+
+      <p class="body-text">Dark matter was first proposed in the 1930s by Fritz Zwicky, who noticed that galaxies in the Coma Cluster were moving far too fast to be held together by the visible mass alone. Later, Vera Rubin confirmed the same pattern within individual galaxies: stars at the outer edges orbit just as fast as those near the center, contrary to what Newtonian gravity would predict from visible mass. Something unseen is providing additional gravitational scaffolding.</p>
+
+      <p class="body-text">Dark energy is even more enigmatic. In 1998, two independent research teams studying distant Type Ia supernovae discovered that the universe's expansion is not slowing down — it is accelerating. Some form of energy intrinsic to space itself appears to be driving galaxies apart at an increasing rate. The leading candidate is Einstein's cosmological constant, representing a constant energy density of the vacuum. But why it has the value it does remains deeply unexplained.</p>
+
+      <table class="data-table">
+        <thead>
+          <tr><th>Component</th><th>Share of Universe</th><th>Current Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Ordinary matter</td><td>~5%</td><td>Well understood</td></tr>
+          <tr><td>Dark matter</td><td>~27%</td><td>Inferred; nature unknown</td></tr>
+          <tr><td>Dark energy</td><td>~68%</td><td>Observed; origin unexplained</td></tr>
+        </tbody>
+      </table>
+
+      <hr class="divider"/>
+
+      <div class="section-head">
+        <p class="section-num">§ 06</p>
+        <h2>Galaxies and Large-Scale Structure</h2>
+      </div>
+
+      <p class="body-text">Galaxies are gravitationally bound systems containing stars, gas, dust, dark matter, and stellar remnants. They range from dwarf galaxies with a few million stars to giant ellipticals containing trillions. Our own Milky Way is a barred spiral roughly 100,000 light-years in diameter, home to an estimated 200–400 billion stars, and is one of roughly 54 galaxies in the Local Group.</p>
+
+      <p class="body-text">On the largest scales, galaxies are not distributed randomly. They cluster into groups and superclusters, which in turn form an intricate web of filaments and sheets surrounding vast cosmic voids. This structure — the cosmic web — emerged directly from tiny quantum fluctuations in the early universe, amplified by gravity over billions of years. The pattern matches extremely well the predictions of the standard cosmological model, ΛCDM (Lambda Cold Dark Matter).</p>
+
+      <hr class="divider"/>
+
+      <div class="section-head">
+        <p class="section-num">§ 07</p>
+        <h2>Key Milestones in Cosmology</h2>
+      </div>
+
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-year">1543</div>
+          <div class="tl-content">
+            <h4>Heliocentric Model — Copernicus</h4>
+            <p>Proposed that Earth orbits the Sun, displacing humanity from the cosmological center for the first time.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">1915</div>
+          <div class="tl-content">
+            <h4>General Relativity — Einstein</h4>
+            <p>Recast gravity as the curvature of spacetime. Predicted black holes, gravitational waves, and the expanding universe.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">1929</div>
+          <div class="tl-content">
+            <h4>Expanding Universe — Hubble</h4>
+            <p>Demonstrated that distant galaxies recede at velocities proportional to their distance, implying a common origin point.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">1965</div>
+          <div class="tl-content">
+            <h4>Cosmic Microwave Background — Penzias &amp; Wilson</h4>
+            <p>Accidentally detected the thermal afterglow of the Big Bang: a uniform 2.7 K radiation field permeating the entire sky.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">1998</div>
+          <div class="tl-content">
+            <h4>Accelerating Expansion — Perlmutter, Schmidt &amp; Riess</h4>
+            <p>Supernova surveys revealed the universe's expansion is speeding up, leading to the concept of dark energy. Nobel Prize, 2011.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2015</div>
+          <div class="tl-content">
+            <h4>Gravitational Waves — LIGO</h4>
+            <p>First direct detection of ripples in spacetime from a binary black hole merger 1.3 billion light-years away. Nobel Prize, 2017.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2019</div>
+          <div class="tl-content">
+            <h4>First Black Hole Image — Event Horizon Telescope</h4>
+            <p>A global network of radio telescopes produced the first direct image of a black hole's shadow, in galaxy M87.</p>
+          </div>
+        </div>
+      </div>
+
+      <hr class="divider"/>
+
+      <div class="section-head">
+        <p class="section-num">§ 08</p>
+        <h2>The Fate of the Universe</h2>
+      </div>
+
+      <p class="body-text">The long-term fate of the universe depends primarily on the nature of dark energy. If dark energy remains constant (as Einstein's cosmological constant suggests), galaxies will continue to accelerate apart, eventually passing beyond each other's observable horizons. Star formation will cease as gas is exhausted; the last stellar remnants will cool into inert black dwarfs over timescales of 10¹⁴ years.</p>
+
+      <p class="body-text">In what cosmologists call the Black Hole Era, spanning roughly 10⁴⁰ to 10¹⁰⁰ years from now, black holes will be the dominant structures in the universe. They too will eventually evaporate through Hawking radiation. Beyond that — the Dark Era — the universe consists of only cold, diffuse particles spreading through increasingly cold space, asymptotically approaching a state of maximum entropy: the heat death of the universe.</p>
+
+      <div class="callout">
+        <p class="callout-label">Alternative Scenarios</p>
+        <p>If dark energy strengthens over time, a "Big Rip" could tear apart galaxies, stars, and eventually atoms themselves within tens of billions of years. If dark energy weakens or reverses, a "Big Crunch" — a final gravitational collapse — is possible. Current data most strongly supports the continued accelerating expansion toward heat death, but the ultimate answer depends on physics we do not yet understand.</p>
+      </div>
+
+    </article>
+
+    <footer>
+      <div class="footer-inner">
+        <p>© 2026 Cosmos — olvrleb.github.io</p>
+        <div>
+          <button class="sys-access" id="sysBtn" onclick="toggleSys()">system access</button>
+          <div class="sys-input-wrap" id="sysWrap">
+            <input
+              class="sys-input"
+              id="sysInput"
+              type="password"
+              placeholder="_ _ _ _ _ _ _"
+              autocomplete="off"
+              onkeydown="handleSys(event)"
+            />
+            <span class="sys-error" id="sysError">denied</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    function toggleSys() {
+      var wrap = document.getElementById('sysWrap');
+      var input = document.getElementById('sysInput');
+      var err = document.getElementById('sysError');
+      err.style.display = 'none';
+      wrap.classList.toggle('visible');
+      if (wrap.classList.contains('visible')) {
+        input.value = '';
+        setTimeout(function(){ input.focus(); }, 50);
+      }
     }
-
-    function checkLink() {
-        const val = document.getElementById('portal-input').value.toLowerCase();
-        if (val === "project") {
-            window.location.href = "what.html";
+    function handleSys(e) {
+      if (e.key === 'Enter') {
+        var val = document.getElementById('sysInput').value;
+        if (val === 'project') {
+          window.location.href = 'what.html';
+        } else {
+          var err = document.getElementById('sysError');
+          err.style.display = 'inline';
+          document.getElementById('sysInput').value = '';
+          setTimeout(function(){ err.style.display = 'none'; }, 1800);
         }
+      }
+      if (e.key === 'Escape') {
+        document.getElementById('sysWrap').classList.remove('visible');
+      }
     }
-</script>
+  </script>
 
 </body>
 </html>
